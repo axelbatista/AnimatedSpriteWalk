@@ -23,6 +23,8 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
+#include "Surface.h"
+#include "Animation.h"
 
 class Game
 {
@@ -40,6 +42,8 @@ private:
 private:
 	MainWindow& wnd;
 	Graphics gfx;
+	Surface surface = { "link90x90.bmp" };
+	Animation animate = { surface };
 	/********************************/
 	/*  User Variables              */
 	/********************************/

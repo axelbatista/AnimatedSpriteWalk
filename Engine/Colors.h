@@ -26,6 +26,9 @@ public:
 	unsigned int dword;
 public:
 	constexpr Color() : dword() {}
+	bool operator!=(const Color& color) {
+		return !(this->dword == color.dword);
+	}
 	constexpr Color( const Color& col )
 		:
 		dword( col.dword )
