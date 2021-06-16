@@ -25,6 +25,7 @@
 #include "Graphics.h"
 #include "Surface.h"
 #include "Animation.h"
+#include "Character.h"
 
 class Game
 {
@@ -44,6 +45,7 @@ private:
 	Graphics gfx;
 	Surface surface = { "link90x90.bmp" };
 	Animation animate = { surface };
+	Character character;
 	/********************************/
 	/*  User Variables              */
 	/********************************/

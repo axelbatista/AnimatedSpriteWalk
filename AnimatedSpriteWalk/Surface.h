@@ -19,21 +19,21 @@ public:
 		BITMAPFILEHEADER bf;
 		file.read(reinterpret_cast<char*>(&bf), sizeof(bf));
 		BITMAPINFOHEADER bInfo;
-		file.read(reinterpret_cast<char*>(&bInfo), sizeof(bInfo));
+		file.read(reinterpret_cast<char*>(&bInfo), sizeof(bInfo));		//read necessary info from the bitmap such as the width and the height of it.
 		width = bInfo.biWidth;
 		height = bInfo.biHeight;
-		const int padding = (4 - (width * 3) % 4) % 4;
+		const int padding = (4 - (width * 3) % 4) % 4;					//at the end of the row, there is "padding" that needs to be skipped there.
 		array = new Color[width * height];
 		file.seekg(bf.bfOffBits);
 		for (int j = height - 1; j >= 0; j--) {
 			for (int i = 0; i < width; i++) {
 				PutPixel(i, j, Color(file.get(), file.get(), file.get()));
 			}
-			file.seekg(padding, std::ios::cur);
+			file.seekg(padding, std::ios::cur);							//here we skip the necessary padding and go onto the next row.
 		}
 	}
 	void PutPixel(int x, int y, Color c);
-	void drawSprite(const Rect& rect, Graphics& gfx);
+	void drawSprite(int m, int n, Rect rect, Graphics& gfx);
 	int getHeight();
 	int getWidth();
 };

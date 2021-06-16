@@ -21,10 +21,11 @@
 #include "MainWindow.h"
 #include "Game.h"
 
-Game::Game( MainWindow& wnd )
+Game::Game(MainWindow& wnd)
 	:
-	wnd( wnd ),
-	gfx( wnd )
+	wnd(wnd),
+	gfx(wnd),
+	character(300,200)
 {
 }
 
@@ -38,9 +39,40 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	if (wnd.kbd.KeyIsPressed('A')) {
+		if (animate.getState() != Animation::state::left) {				//character.move sets the speed of the character.
+			animate.setState(Animation::state::left);
+		}
+		character.move(-2, 0);
+		animate.passTime(0,5);
+	}
+	else if (wnd.kbd.KeyIsPressed('D')) {
+		if (animate.getState() != Animation::state::right) {
+			animate.setState(Animation::state::right);
+		}
+		character.move(2, 0);
+		animate.passTime(5,10);
+	}
+	else if (wnd.kbd.KeyIsPressed('W')) {
+		if (animate.getState() != Animation::state::back) {
+			animate.setState(Animation::state::back);
+		}
+		character.move(0, -2);
+		animate.passTime(10,15);
+	}
+	else if (wnd.kbd.KeyIsPressed('S')) {
+		if (animate.getState() != Animation::state::front) {
+			animate.setState(Animation::state::front);
+		}
+		character.move(0, 2);
+		animate.passTime(15,20);
+	}
+	else {
+		animate.setToNoMovement();				//doesn't make sense to have the character suspended in air if there is no movement.
+	}
 }
 
 void Game::ComposeFrame()
 {
-	animate.draw(gfx);
+	animate.draw(character.spot.x, character.spot.y,gfx);
 }
