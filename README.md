@@ -1,1 +1,1 @@
-Completely Functional. It's good
+Completely Functional. Uses the Chili framework.
